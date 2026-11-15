@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beyond The Last Signal — NASA Space Apps Challenge</title>
+  <meta name="description"
+    content="A NASA International Space Apps Challenge project honoring Mars Exploration Rover Opportunity (MER-B) under the challenge: Abandoned, But Not Forgotten." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Three.js for 3D Rover Inspection -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="dark-theme">
+  <!-- Audio Soundscape Engine (Web Audio API Synthesizer) -->
+  <div id="audio-indicator" class="audio-toggle" title="Toggle Atmospheric Mars Audio Soundscape">
+    <i data-lucide="volume-2" id="audio-icon"></i>
+    <span id="audio-status">AUDIO: OFF</span>
+  </div>
+
+  <!-- Top Navigation & Telemetry HUD -->
+  <header class="mission-hud-top">
+    <div class="hud-brand">
+      <div class="brand-avatar">
+        <svg viewBox="0 0 100 100" class="avatar-svg">
+          <circle cx="50" cy="50" r="46" fill="#1e140d" stroke="#ea580c" stroke-width="3" />
+          <circle cx="65" cy="40" r="16" fill="#f97316" opacity="0.8" />
+          <path d="M10,75 Q50,45 90,75" fill="none" stroke="#fed7aa" stroke-width="2" />
+          <circle cx="35" cy="30" r="2" fill="#fff" />
+          <circle cx="78" cy="22" r="1.5" fill="#fff" />
+          <circle cx="20" cy="55" r="1.5" fill="#fff" />
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="team-title">ANTIGRAVIITYYY</span>
+        <span class="team-sub">MARS EXPLORATION ARCHIVE</span>
+      </div>
+    </div>
+
+    <div class="hud-center-badge">
+      <span class="live-dot"></span>
+      <span class="badge-label">SURFACE SKY VIEW • NASA PIA07997</span>
+    </div>
+
+    <div class="hud-telemetry">
+      <div class="telemetry-item time-display" id="clock-display">
+        <span>Sun, Nov 15 • 6:02 PM</span>
+      </div>
+      <div class="telemetry-item moon-display" title="Mars Moon Phobos Phase">
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="9" stroke-width="1.8" />
+          <path d="M12 3a9 9 0 0 0 0 18 9 9 0 0 1 0-18z" fill="#f8fafc" />
+        </svg>
+      </div>
+      <div class="telemetry-item signal-meter" title="DSN Telemetry Carrier Lock">
+        <div class="bar bar-1 active"></div>
+        <div class="bar bar-2 active"></div>
+        <div class="bar bar-3 active"></div>
+        <div class="bar bar-4 active"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Scrollytelling Flow -->
+  <main id="scrolly-container">
+
+    <!-- HERO SECTION -->
+    <section class="story-chapter hero-section" id="chapter-hero" data-chapter="0">
+      <div class="hero-bg-overlay"></div>
+      <div class="hero-grid-pattern"></div>
+
+      <div class="hero-content">
+        <div class="pill-badge">
+          <span class="pill-dot"></span>
+          <span>ANTIGRAVIITYYY PRESENTS</span>
+          <span class="pill-dot"></span>
+        </div>
+
+        <h1 class="hero-title">BEYOND THE LAST SIGNAL</h1>
+        <p class="hero-subtitle">“A story that refused to end”</p>
+
+        <div class="competition-card">
+          <div class="comp-badge">2026 NASA INTERNATIONAL SPACE APPS CHALLENGE</div>
+          <div class="comp-topic">
+            <strong>Challenge:</strong> Abandoned, But Not Forgotten — Storytelling About NASA's Discarded Equipment on
+            the Moon and Mars
+          </div>
+        </div>
+
+        <div class="scroll-prompt" onclick="document.getElementById('chapter-1').scrollIntoView({behavior: 'smooth'})">
+          <span class="scroll-text">SCROLL DOWN TO BEGIN MISSION</span>
+          <div class="mouse-icon">
+            <div class="mouse-wheel"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 01: THE LAST SIGNAL -->
+    <section class="story-chapter" id="chapter-1" data-chapter="1">
+      <div class="chapter-bg"
+        style="background-image: radial-gradient(circle at 60% 40%, rgba(234, 88, 12, 0.18), transparent 70%), url('https://images-assets.nasa.gov/image/PIA22228/PIA22228~orig.jpg');">
+      </div>
+      <div class="chapter-inner">
+        <div class="visual-pane">
+          <div class="waveform-container">
+            <div class="audio-wave">
+              <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span><span
+                class="wave-bar"></span>
+              <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span><span
+                class="wave-bar"></span>
+            </div>
+            <div class="signal-tag">DEEP SPACE NETWORK (CANBERRA 70M DSS-43) • 8.4 GHz X-BAND</div>
+          </div>
+          <div class="hud-reticle">
+            <div class="reticle-circle"></div>
+            <div class="reticle-crosshair"></div>
+            <span class="reticle-label">PERSEVERANCE VALLEY • LAT -2.22° LON 354.67°</span>
+          </div>
+        </div>
+
+        <div class="narrative-card">
+          <div class="chapter-tag">PROLOGUE • SOL 5111</div>
+          <h2 class="chapter-title">The Last Signal</h2>
+          <div class="card-timestamp">June 10, 2018 • Mars, Perseverance Valley</div>
+
+          <div class="card-body">
+            <p>High above the rim of Endeavour Crater, the Martian sky bruised into an opaque, apocalyptic
+              reddish-brown. A planet-encircling dust storm—one of the largest ever recorded in modern history—blotted
+              out the sun, choking solar flux to less than <strong>2% of nominal levels</strong>.</p>
+            <p class="quote-callout">“My battery is low and it's getting dark.”</p>
+            <p>These poetic words, translated from Opportunity's final telemetry transmission of tau and power reserves,
+              echoed back to mission controllers at NASA’s Jet Propulsion Laboratory. After 5,111 sols of continuous
+              exploration, MER-B fell silent. But this was not a story of defeat—it was the culmination of an impossible
+              voyage.</p>
+          </div>
+
+          <div class="citation-pills">
+            <span class="pds-pill"><i data-lucide="database"></i> NASA PIA22228</span>
+            <span class="pds-pill"><i data-lucide="map-pin"></i> Endeavour Rim</span>
+            <span class="pds-pill"><i data-lucide="sun"></i> Tau: 10.8+</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 02: A 90-DAY PROMISE -->
+    <section class="story-chapter" id="chapter-2" data-chapter="2">
+      <div class="chapter-bg"
+        style="background-image: radial-gradient(circle at 40% 50%, rgba(6, 182, 212, 0.15), transparent 70%), url('https://images-assets.nasa.gov/image/PIA04413/PIA04413~orig.jpg');">
+      </div>
+      <div class="chapter-inner">
+        <div class="visual-pane">
+          <div class="img-frame">
+            <img src="https://images-assets.nasa.gov/image/PIA04413/PIA04413~medium.jpg"
+              alt="Opportunity Clean Room Assembly at NASA JPL" class="archival-img" />
+            <div class="img-caption">NASA JPL Spacecraft Assembly Facility (SAF) • Pasadena, California</div>
+          </div>
+        </div>
+
+        <div class="narrative-card">
+          <div class="chapter-tag">CHAPTER 01 • JAN 25, 2004</div>
+          <h2 class="chapter-title">A 90-Day Promise</h2>
+          <div class="card-timestamp">Primary Mission Warranty: 90 Sols • 600m Distance</div>
+
+          <div class="card-body">
+            <p>When the Mars Exploration Rover <em>Opportunity</em> was bolted to the payload adapter of a Delta II
+              rocket, engineers and scientists harbored modest hopes: survive a jarring airbag bounce, deploy solar
+              panels, and explore for just <strong>90 Martian days</strong>.</p>
+            <p>Landing on Meridiani Planum, Opportunity executed an interplanetary "hole-in-one," rolling to a gentle
+              halt directly inside the 22-meter-wide <strong>Eagle Crater</strong>. Its warranties were brief; its
+              destiny was legendary.</p>
+          </div>
+
+          <div class="milestone-box">
+            <div class="milestone-stat">
+              <span class="stat-num">90</span>
+              <span class="stat-lbl">Planned Sols</span>
+            </div>
+            <div class="milestone-stat">
+              <span class="stat-num">5,111</span>
+              <span class="stat-lbl">Delivered Sols</span>
+            </div>
+            <div class="milestone-stat">
+              <span class="stat-num">57x</span>
+              <span class="stat-lbl">Mission Lifespan</span>
+            </div>
+          </div>
+
+          <div class="citation-pills">
+            <span class="pds-pill"><i data-lucide="database"></i> NASA PIA04413</span>
+            <span class="pds-pill"><i data-lucide="check-circle-2"></i> Lock 01 Unlocked</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 03: THE CLUE IN THE ROCKS -->
+    <section class="story-chapter" id="chapter-3" data-chapter="3">
+      <div class="chapter-bg"
+        style="background-image: radial-gradient(circle at 60% 50%, rgba(245, 158, 11, 0.15), transparent 70%), url('https://images-assets.nasa.gov/image/PIA05470/PIA05470~orig.jpg');">
+      </div>
+      <div class="chapter-inner">
+        <div class="visual-pane">
+          <div class="img-frame">
+            <img src="https://images-assets.nasa.gov/image/PIA05470/PIA05470~medium.jpg"
+              alt="Martian Blueberries in Eagle Crater" class="archival-img" />
+            <div class="img-caption">Microscopic Imager View of Hematite Spherules • Eagle Crater</div>
+          </div>
+        </div>
+
+        <div class="narrative-card">
+          <div class="chapter-tag">CHAPTER 02 • WATER CONFIRMED</div>
+          <h2 class="chapter-title">The Clue in the Rocks</h2>
+          <div class="card-timestamp">Sol 30–120 • Eagle & Endurance Craters</div>
+
+          <div class="card-body">
+            <p>Within weeks of touching down, Opportunity’s Microscopic Imager discovered millions of tiny,
+              millimeter-sized spheres scattered across the outcrop bedrock—promptly dubbed <strong>"Martian
+                blueberries."</strong></p>
+            <p>Using its Mössbauer and Alpha Particle X-ray Spectrometers (APXS), Opportunity revealed that these
+              spherules were rich in <strong>hematite</strong> and <strong>jarosite</strong>—minerals that could only
+              crystallize in the presence of acidic, liquid groundwater. For the first time, humanity held definitive
+              in-situ proof that Mars had once been warm, wet, and potentially habitable.</p>
+          </div>
+
+          <div class="citation-pills">
+            <span class="pds-pill"><i data-lucide="database"></i> NASA PIA05470</span>
+            <span class="pds-pill"><i data-lucide="droplet"></i> Aqueous History</span>
+            <span class="pds-pill"><i data-lucide="sparkles"></i> Hematite</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 04: TRAPPED ON ANOTHER WORLD -->
+    <section class="story-chapter" id="chapter-4" data-chapter="4">
+      <div class="chapter-bg"
+        style="background-image: radial-gradient(circle at 30% 60%, rgba(220, 38, 38, 0.18), transparent 70%), url('https://images-assets.nasa.gov/image/PIA07997/PIA07997~orig.jpg');">
+      </div>
+      <div class="chapter-inner">
+        <div class="visual-pane">
+          <div class="img-frame">
+            <img src="https://images-assets.nasa.gov/image/PIA07997/PIA07997~medium.jpg"
+              alt="Opportunity Stuck in Purgatory Dune" class="archival-img" />
+            <div class="img-caption">Hazcam View: Wheels Buried Hub-Deep in Purgatory Dune (Sol 446)</div>
+          </div>
+        </div>
+
+        <div class="narrative-card">
+          <div class="chapter-tag">CHAPTER 03 • CRISIS & SURVIVAL</div>
+          <h2 class="chapter-title">Trapped on Another World</h2>
+          <div class="card-timestamp">Sol 446–484 • Purgatory Dune Incident</div>
+
+          <div class="card-body">
+            <p>On Sol 446 (April 26, 2005), while driving across the vast sand ripples of Meridiani, Opportunity’s 6
+              aluminum wheels bogged down into soft, powdery drift sand. All six wheels spun without traction, burying
+              the bogies up to their axles in what the team called <strong>"Purgatory Dune."</strong></p>
+            <p>Over 100 million miles away on Earth, JPL engineers spent five tense weeks constructing an exact replica
+              of the dune using diatomaceous earth in the JPL In-Situ Instrument Laboratory. Calculating
+              millimeter-precise wheel turns, they safely backed Oppy out of the trap on Sol 484.</p>
+          </div>
+
+          <div class="citation-pills">
+            <span class="pds-pill"><i data-lucide="database"></i> NASA PIA07997</span>
+            <span class="pds-pill"><i data-lucide="alert-triangle"></i> Hub-Deep Sand</span>
+            <span class="pds-pill"><i data-lucide="check-circle-2"></i> Lock 02 Unlocked</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 05: THE MARATHONER OF MARS -->
+    <section class="story-chapter" id="chapter-5" data-chapter="5">
+      <div class="chapter-bg"
+        style="background-image: radial-gradient(circle at 70% 30%, rgba(234, 88, 12, 0.15), transparent 70%), url('https://images-assets.nasa.gov/image/PIA13593/PIA13593~orig.jpg');">
+      </div>
+      <div class="chapter-inner">
+        <div class="visual-pane">
+          <div class="img-frame">
+            <img src="https://images-assets.nasa.gov/image/PIA13593/PIA13593~medium.jpg"
+              alt="Victoria Crater Rim Panorama" class="archival-img" />
+            <div class="img-caption">Pancam 360° Panorama of Cape Verde & Victoria Crater Rim</div>
+          </div>
+        </div>
+
+        <div class="narrative-card">
+          <div class="chapter-tag">CHAPTER 04 • RECORD BREAKING</div>
+          <h2 class="chapter-title">The Marathoner of Mars</h2>
+          <div class="card-timestamp">Sol 1000–4000 • 42.195 Kilometers Driven</div>
+
+          <div class="card-body">
+            <p>Despite suffering an arthritic right-front steering actuator and a degraded heater in its robotic arm,
+              Opportunity pushed relentlessly across the Martian plains. It navigated the precipitous cliffs of Victoria
+              Crater and set sights on the massive 22-kilometer basin of <strong>Endeavour Crater</strong>.</p>
+            <p>On <strong>Sol 3968 (March 24, 2015)</strong>, Opportunity completed 42.195 km (26.219 miles)—becoming
+              the first human vehicle to complete an official Olympic marathon on an alien world!</p>
+          </div>
+
+          <div class="milestone-box">
+            <div class="milestone-stat">
+              <span class="stat-num">45.16 km</span>
+              <span class="stat-lbl">Total Distance</span>
+            </div>
+            <div class="milestone-stat">
+              <span class="stat-num">217,594</span>
+              <span class="stat-lbl">Raw Images</span>
+            </div>
+            <div class="milestone-stat">
+              <span class="stat-num">#1</span>
+              <span class="stat-lbl">Off-World Record</span>
+            </div>
+          </div>
+
+          <div class="citation-pills">
+            <span class="pds-pill"><i data-lucide="database"></i> NASA PIA13593</span>
+            <span class="pds-pill"><i data-lucide="award"></i> Olympic Marathon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 06: THE GREAT DARK -->
+    <section class="story-chapter" id="chapter-6" data-chapter="6">
+      <div class="chapter-bg"
+        style="background-image: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.8), transparent), url('https://images-assets.nasa.gov/image/PIA22517/PIA22517~orig.jpg');">
+      </div>
+      <div class="chapter-inner">
+        <div class="visual-pane">
+          <div class="img-frame">
+            <img src="https://images-assets.nasa.gov/image/PIA22517/PIA22517~medium.jpg"
+              alt="Perseverance Valley and Dust Storm Approach" class="archival-img" />
+            <div class="img-caption">Perseverance Valley Panorama as Atmospheric Opacity Skyrockets</div>
+          </div>
+        </div>
+
+        <div class="narrative-card">
+          <div class="chapter-tag">CHAPTER 05 • PERSEVERANCE VALLEY</div>
+          <h2 class="chapter-title">The Great Dark</h2>
+          <div class="card-timestamp">Sol 5100–5111 • Planet-Encircling Storm</div>
+
+          <div class="card-body">
+            <p>In early June 2018, atmospheric opacity (Tau) skyrocketed above 10.8—an atmospheric blackout that turned
+              Martian noon into pitch black night. Opportunity relied entirely on solar energy to charge its lithium-ion
+              batteries and run survival heaters.</p>
+            <p>Power output plummeted from 645 watt-hours to a catastrophic <strong>22 watt-hours</strong>. With energy
+              conservation protocols triggered, Opportunity automatically shutdown sub-systems and entered low-power
+              hibernation, awaiting sunlight that took months to return.</p>
+          </div>
+
+          <div class="citation-pills">
+            <span class="pds-pill"><i data-lucide="database"></i> NASA PIA22517</span>
+            <span class="pds-pill"><i data-lucide="battery-low"></i> 22 Watt-Hours</span>
+            <span class="pds-pill"><i data-lucide="check-circle-2"></i> Lock 03 Unlocked</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 07: ABANDONED, BUT NOT FORGOTTEN -->
+    <section class="story-chapter" id="chapter-7" data-chapter="7">
+      <div class="chapter-bg"
+        style="background-image: radial-gradient(circle at 50% 50%, rgba(234, 88, 12, 0.2), transparent 70%), url('https://images-assets.nasa.gov/image/PIA18079/PIA18079~orig.jpg');">
+      </div>
+      <div class="chapter-inner">
+        <div class="visual-pane">
+          <div class="img-frame">
+            <img src="https://images-assets.nasa.gov/image/PIA18079/PIA18079~medium.jpg"
+              alt="Opportunity Self-Portrait with Dust-Covered Solar Panels" class="archival-img" />
+            <div class="img-caption">Opportunity Self-Portrait: Solar Arrays Caked with Martian Dust (NASA/JPL)</div>
+          </div>
+        </div>
+
+        <div class="narrative-card">
+          <div class="chapter-tag">CHAPTER 06 • THE VIGIL</div>
+          <h2 class="chapter-title">Abandoned, But Not Forgotten</h2>
+          <div class="card-timestamp">Feb 13, 2019 • Sol 5352 • Deep Space Network Final Call</div>
+
+          <div class="card-body">
+            <p>For eight agonizing months, engineers at JPL sent over <strong>1,000 recovery commands</strong> across
+              the Deep Space Network. They piped morning wake-up songs across interplanetary space, culminating with
+              Billie Holiday's <em>"I'll Be Seeing You."</em></p>
+            <p>No carrier signal ever answered. On February 13, 2019, NASA announced mission completion. In Perseverance
+              Valley, a solitary robot rests beneath thin carbon dioxide skies—not as abandoned junk, but as an eternal
+              monument to human curiosity.</p>
+          </div>
+
+          <div class="citation-pills">
+            <span class="pds-pill"><i data-lucide="radio"></i> 1,000+ DSN Pings</span>
+            <span class="pds-pill"><i data-lucide="heart"></i> I'll Be Seeing You</span>
+            <span class="pds-pill"><i data-lucide="check-circle-2"></i> Lock 04 Unlocked</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 08: THE FUTURE HORIZON -->
+    <section class="story-chapter epilogue-section" id="chapter-8" data-chapter="8">
+      <div class="chapter-bg"
+        style="background-image: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.15), transparent 70%), url('https://images-assets.nasa.gov/image/PIA17079/PIA17079~orig.jpg');">
+      </div>
+      <div class="chapter-inner">
+        <div class="narrative-card full-width-card">
+          <div class="chapter-tag">EPILOGUE • SPACE HERITAGE & THE ARTEMIS ERA</div>
+          <h2 class="chapter-title">The First Planetary Heritage Site</h2>
+
+          <div class="card-body">
+            <p>Under international space preservation frameworks like <em>For All Moonkind</em> and the Artemis Accords
+              heritage guidelines, equipment left on celestial bodies represents the collective cultural patrimony of
+              humanity.</p>
+            <p>When the first human astronauts step onto the red sands of Endeavour Crater in the decades ahead, they
+              will not see discarded metal. They will find an intrepid pioneer waiting patiently where we left her—a
+              testament to what humanity can accomplish when we dare to look beyond the horizon.</p>
+          </div>
+
+          <div class="action-buttons-grid">
+            <button class="action-btn" onclick="openModal('modal-3d')">
+              <i data-lucide="box"></i>
+              <span>Inspect 3D Rover</span>
+            </button>
+            <button class="action-btn" onclick="openModal('modal-instruments')">
+              <i data-lucide="cpu"></i>
+              <span>Science Suite</span>
+            </button>
+            <button class="action-btn" onclick="openModal('modal-map')">
+              <i data-lucide="map"></i>
+              <span>Traverse Map</span>
+            </button>
+            <button class="action-btn accent-btn" onclick="openModal('modal-quiz')">
+              <i data-lucide="help-circle"></i>
+              <span>Take Mission Quiz</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Persistent Bottom HUD & Gamified Lock Progression -->
+  <footer class="mission-hud-bottom">
+    <div class="progress-bar-container">
+      <div class="progress-track">
+        <div class="progress-segment" data-seg="0"></div>
+        <div class="progress-segment" data-seg="1"></div>
+        <div class="progress-segment" data-seg="2"></div>
+        <div class="progress-segment" data-seg="3"></div>
+        <div class="progress-segment" data-seg="4"></div>
+        <div class="progress-segment" data-seg="5"></div>
+        <div class="progress-segment" data-seg="6"></div>
+        <div class="progress-segment" data-seg="7"></div>
+      </div>
+    </div>
+
+    <div class="locks-hud">
+      <div class="lock-btn locked" id="lock-btn-1" onclick="openModal('modal-3d')"
+        title="Lock 01: 3D Opportunity Rover Model">
+        <div class="lock-indicator">1</div>
+        <i data-lucide="lock" class="lock-icon"></i>
+      </div>
+
+      <div class="lock-btn locked" id="lock-btn-2" onclick="openModal('modal-instruments')"
+        title="Lock 02: Rover Scientific Instruments">
+        <div class="lock-indicator">2</div>
+        <i data-lucide="lock" class="lock-icon"></i>
+      </div>
+
+      <div class="lock-btn locked" id="lock-btn-3" onclick="openModal('modal-map')"
+        title="Lock 03: NASA Mars Traverse Path Map">
+        <div class="lock-indicator">3</div>
+        <i data-lucide="lock" class="lock-icon"></i>
+      </div>
+
+      <div class="lock-btn locked" id="lock-btn-4" onclick="openModal('modal-quiz')"
+        title="Lock 04: Opportunity Mission Quiz">
+        <div class="lock-indicator">4</div>
+        <i data-lucide="lock" class="lock-icon"></i>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Unlock Toast Notification -->
+  <div id="unlock-toast" class="unlock-toast hidden">
+    <div class="toast-icon">
+      <i data-lucide="check-circle-2"></i>
+    </div>
+    <div class="toast-body">
+      <div class="toast-title" id="toast-title">Lock Unlocked</div>
+      <div class="toast-desc" id="toast-desc">Click to explore reward.</div>
+    </div>
+    <button class="toast-explore-btn" id="toast-explore-btn">EXPLORE NOW</button>
+  </div>
+
+  <!-- MODAL 1: 3D OPPORTUNITY ROVER INSPECTOR -->
+  <div class="modal-overlay hidden" id="modal-3d">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i data-lucide="box" class="modal-icon"></i>
+          <div>
+            <h3>3D Opportunity Rover Engineering Model</h3>
+            <span class="modal-sub">Interactive Subsystem & Instrument Inspection</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('modal-3d')"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="modal-body-3d">
+        <div id="three-canvas-container"></div>
+        <div class="rover-hotspot-panel">
+          <h4>Key Subsystems</h4>
+          <div class="hotspot-item active" onclick="focusRoverSubsystem('arrays')">
+            <span class="hotspot-dot"></span>
+            <strong>Triple-Junction Solar Arrays</strong>
+            <p>Gallium arsenide cells generating up to 900 Wh/sol (clean conditions).</p>
+          </div>
+          <div class="hotspot-item" onclick="focusRoverSubsystem('pancam')">
+            <span class="hotspot-dot"></span>
+            <strong>Pancam Mast Assembly (PMA)</strong>
+            <p>Mounted 1.5m above ground with stereo 1024x1024 multispectral sensors.</p>
+          </div>
+          <div class="hotspot-item" onclick="focusRoverSubsystem('arm')">
+            <span class="hotspot-dot"></span>
+            <strong>Instrument Deployment Device (IDD)</strong>
+            <p>5-degree-of-freedom robotic arm holding RAT, APXS, Mössbauer, and MI.</p>
+          </div>
+          <div class="hotspot-item" onclick="focusRoverSubsystem('bogie')">
+            <span class="hotspot-dot"></span>
+            <strong>Rocker-Bogie Mobility System</strong>
+            <p>6 independently driven aluminum wheels with aggressive cleat grousers.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="footer-tip">Drag mouse to rotate • Scroll to zoom • Click subsystems to inspect</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: ROVER SCIENTIFIC INSTRUMENTS SUITE -->
+  <div class="modal-overlay hidden" id="modal-instruments">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i data-lucide="cpu" class="modal-icon"></i>
+          <div>
+            <h3>Opportunity Scientific Instruments Suite</h3>
+            <span class="modal-sub">Athena Science Payload Specifications</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('modal-instruments')"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="modal-body-content">
+        <div class="instrument-grid">
+          <div class="instrument-card">
+            <div class="inst-badge">SPECTROMETER</div>
+            <h4>APXS (Alpha Particle X-Ray Spectrometer)</h4>
+            <p>Bombards rock samples with Curium-244 alpha particles and X-rays to detect bulk elemental abundances from
+              carbon to strontium.</p>
+            <div class="inst-stat"><strong>Key Finding:</strong> High sulfur, chlorine, and bromine proving saline
+              aqueous deposition.</div>
+          </div>
+
+          <div class="instrument-card">
+            <div class="inst-badge">SPECTROMETER</div>
+            <h4>Mössbauer Spectrometer (MIMOS II)</h4>
+            <p>Uses a Cobalt-57 gamma ray source to determine iron oxidation states (+2, +3) and mineral compositions.
+            </p>
+            <div class="inst-stat"><strong>Key Finding:</strong> Identified jarosite, a sulfate mineral requiring
+              standing liquid water.</div>
+          </div>
+
+          <div class="instrument-card">
+            <div class="inst-badge">GEOLOGY TOOL</div>
+            <h4>Rock Abrasion Tool (RAT)</h4>
+            <p>Diamond-impregnated resin cutter spinning at 3,000 RPM to grind 45mm diameter holes through weathered
+              rock coatings into fresh interior.</p>
+            <div class="inst-stat"><strong>Total Grinds:</strong> 52 deep interior rock surfaces exposed across 14
+              years.</div>
+          </div>
+
+          <div class="instrument-card">
+            <div class="inst-badge">INFRARED SENSOR</div>
+            <h4>Mini-TES (Mini Thermal Emission Spectrometer)</h4>
+            <p>Interferometer recording thermal infrared spectra (5 to 29 microns) to determine mineralogy from dozens
+              of meters away.</p>
+            <div class="inst-stat"><strong>Key Finding:</strong> Detected widespread coarse-grained gray hematite from
+              afar.</div>
+          </div>
+
+          <div class="instrument-card">
+            <div class="inst-badge">IMAGING</div>
+            <h4>Microscopic Imager (MI)</h4>
+            <p>High-resolution macro camera with 30-micron resolution per pixel mounted on the turret of the robotic
+              arm.</p>
+            <div class="inst-stat"><strong>Key Finding:</strong> First close-up microscopic discovery of "Martian
+              blueberries".</div>
+          </div>
+
+          <div class="instrument-card">
+            <div class="inst-badge">MULTISPECTRAL</div>
+            <h4>Panoramic Camera (Pancam)</h4>
+            <p>Stereoscopic dual cameras with 8-position filter wheels spanning 400 nm to 1000 nm for true-color and
+              false-color geologic mapping.</p>
+            <div class="inst-stat"><strong>Total Frames:</strong> Over 150,000 breathtaking Martian panoramic
+              landscapes.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: NASA MARS TRAVERSE PATH MAP -->
+  <div class="modal-overlay hidden" id="modal-map">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i data-lucide="map" class="modal-icon"></i>
+          <div>
+            <h3>NASA Mars Traverse Path Map</h3>
+            <span class="modal-sub">45.16 km Odyssey from Eagle Crater to Perseverance Valley</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('modal-map')"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="modal-body-content">
+        <div class="map-svg-container">
+          <svg viewBox="0 0 900 480" class="traverse-svg">
+            <!-- Background Martian Grid -->
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(234, 88, 12, 0.12)" stroke-width="1" />
+              </pattern>
+            </defs>
+            <rect width="900" height="480" fill="#120d09" />
+            <rect width="900" height="480" fill="url(#grid)" />
+
+            <!-- Craters -->
+            <!-- Eagle Crater -->
+            <circle cx="80" cy="80" r="24" fill="#241710" stroke="#f97316" stroke-width="2" />
+            <text x="80" y="50" fill="#fed7aa" font-size="12" text-anchor="middle"
+              font-family="'JetBrains Mono', monospace">Eagle Crater (Sol 1)</text>
+
+            <!-- Fram Crater -->
+            <circle cx="160" cy="110" r="14" fill="#241710" stroke="#ea580c" stroke-width="1.5" />
+
+            <!-- Endurance Crater -->
+            <circle cx="280" cy="140" r="48" fill="#241710" stroke="#f97316" stroke-width="2" />
+            <text x="280" y="80" fill="#fed7aa" font-size="12" text-anchor="middle"
+              font-family="'JetBrains Mono', monospace">Endurance Crater (Sol 134)</text>
+
+            <!-- Purgatory Dune Trap -->
+            <rect x="370" cy="170" width="30" height="20" rx="4" fill="#450a0a" stroke="#ef4444" stroke-width="2" />
+            <text x="385" y="160" fill="#fca5a5" font-size="11" text-anchor="middle"
+              font-family="'JetBrains Mono', monospace">Purgatory Dune (Sol 446)</text>
+
+            <!-- Victoria Crater -->
+            <circle cx="480" cy="260" r="62" fill="#241710" stroke="#f97316" stroke-width="2" />
+            <text x="480" y="190" fill="#fed7aa" font-size="12" text-anchor="middle"
+              font-family="'JetBrains Mono', monospace">Victoria Crater (Sol 951)</text>
+
+            <!-- Santa Maria Crater -->
+            <circle cx="620" cy="300" r="22" fill="#241710" stroke="#ea580c" stroke-width="1.5" />
+            <text x="620" y="270" fill="#fed7aa" font-size="11" text-anchor="middle"
+              font-family="'JetBrains Mono', monospace">Santa Maria (Sol 2450)</text>
+
+            <!-- Endeavour Crater Rim & Perseverance Valley -->
+            <circle cx="820" cy="380" r="120" fill="none" stroke="#f97316" stroke-dasharray="6,4" stroke-width="2.5" />
+            <circle cx="770" cy="360" r="10" fill="#ea580c" stroke="#fff" stroke-width="2" />
+            <text x="770" y="340" fill="#fef08a" font-size="12" font-weight="bold" text-anchor="middle"
+              font-family="'JetBrains Mono', monospace">Perseverance Valley (Sol 5111)</text>
+
+            <!-- The Traverse Path Line -->
+            <path d="M 80,80 L 160,110 L 280,140 L 385,180 L 480,260 L 620,300 L 710,335 L 770,360" fill="none"
+              stroke="#06b6d4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"
+              class="animated-path" />
+
+            <!-- Waypoint circles -->
+            <circle cx="80" cy="80" r="5" fill="#06b6d4" />
+            <circle cx="280" cy="140" r="5" fill="#06b6d4" />
+            <circle cx="480" cy="260" r="5" fill="#06b6d4" />
+            <circle cx="770" cy="360" r="6" fill="#facc15" />
+          </svg>
+        </div>
+        <div class="map-stats-strip">
+          <div class="mstat"><strong>Launch:</strong> July 7, 2003</div>
+          <div class="mstat"><strong>Landing:</strong> Jan 25, 2004</div>
+          <div class="mstat"><strong>Final Distance:</strong> 45.16 km (28.06 mi)</div>
+          <div class="mstat"><strong>Final Sol:</strong> Sol 5111 (June 10, 2018)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: OPPORTUNITY MISSION QUIZ -->
+  <div class="modal-overlay hidden" id="modal-quiz">
+    <div class="modal-window quiz-window">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i data-lucide="help-circle" class="modal-icon"></i>
+          <div>
+            <h3>Opportunity Mission Debrief Quiz</h3>
+            <span class="modal-sub">Test Your Martian Exploration Knowledge</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('modal-quiz')"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="modal-body-content" id="quiz-container">
+        <div id="quiz-question-screen">
+          <div class="quiz-progress-text">Question <span id="q-current">1</span> of 5</div>
+          <h4 id="q-title" class="quiz-q-title">Question loading...</h4>
+          <div class="quiz-options-list" id="q-options"></div>
+          <div id="q-feedback" class="quiz-feedback hidden"></div>
+          <button id="q-next-btn" class="quiz-btn hidden" onclick="nextQuizQuestion()">Next Question</button>
+        </div>
+
+        <div id="quiz-results-screen" class="hidden">
+          <div class="quiz-score-badge">
+            <span id="final-score-num">5</span> / 5
+          </div>
+          <h3 id="quiz-result-title">Mission Specialist Certified!</h3>
+          <p id="quiz-result-desc">You demonstrated master-level understanding of NASA's Mars Exploration Rover
+            Opportunity.</p>
+          <button class="quiz-btn" onclick="resetQuiz()">Retake Quiz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
